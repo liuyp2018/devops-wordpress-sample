@@ -18,7 +18,7 @@ pipeline{
    
         stage('deploy mysql'){
             steps{
-                kubernetesDeploy(configs: 'deploy/devops-mysql/**', deleteResource: true, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
+                kubernetesDeploy(configs: 'deploy/devops-mysql/**', deleteResource: false, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
                }
         }
         
