@@ -15,6 +15,7 @@ pipeline{
                 checkout(scm)
             }
         }
+    }
     
     stages{
         stage('deploy mysql'){
