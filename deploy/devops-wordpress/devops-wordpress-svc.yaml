@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: devops-wordpress-svc
+  namespace: ks-devops-test
+  labels:
+    app: devopstest
+    container: devops-wordpress
+    group: devopstest
+spec:
+  ports:
+    - name: tcp-80
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: devopstest
+    container: devops-wordpress
+    group: devopstest
+  sessionAffinity: None

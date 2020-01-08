@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: devops-mysql-svc
+  namespace: ks-devops-test
+  labels:
+    app: devopstest
+    container: devops-mysql
+    group: devopstest
+spec:
+  ports:
+    - name: devops-mysql
+      protocol: TCP
+      port: 3306
+      targetPort: 3306
+  selector:
+    app: devopstest
+    container: devops-mysql
+    group: devopstest
+  sessionAffinity: None

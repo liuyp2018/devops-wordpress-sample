@@ -1,0 +1,19 @@
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: devops-wordpress-ingr
+  namespace: ks-devops-test
+  labels:
+    app: devopstest
+    group: devopstest
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: wordpress.demo.example.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: devops-wordpress-svc
+              servicePort: 80
