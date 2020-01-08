@@ -24,7 +24,7 @@ pipeline{
         
         stage('deploy wordpress'){
             steps{
-                kubernetesDeploy(configs: 'deploy/devops-wordpress/**', deleteResource: true, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
+                kubernetesDeploy(configs: 'deploy/devops-wordpress/**', deleteResource: false, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
             }
         }
     }
