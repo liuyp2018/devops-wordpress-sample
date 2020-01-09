@@ -22,7 +22,7 @@ pipeline{
                     if (finder) {
                        echo "success";
                     } else {
-                       echo "no match";
+                       error "curl failed";
                     }
                  }
             }
