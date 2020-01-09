@@ -10,21 +10,21 @@ pipeline{
     }
 
     stages {
-        stage ('checkout scm') {
-            steps {
-                checkout(scm)
-            }
-        }
-   
-        stage('deploy mysql'){
-            steps{
-                kubernetesDeploy(configs: 'deploy/devops-mysql/**', deleteResource: false, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
-               }
-        }
-        
-        stage('deploy wordpress'){
-            steps{
-                kubernetesDeploy(configs: 'deploy/devops-wordpress/**', deleteResource: false, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
+         
+        stage('test curl'){
+            steps{  
+                 script {
+                    response = sh(
+                      returnStdout: true, 
+                      script: "curl http://wordpress.demo.example.com:32548/wp-admin/install.php"
+                    );
+                    def finder = (response =~ /(?s).*language*/);
+                    if (finder) {
+                       echo 'Status ' + finder.group(1);
+                    } else {
+                       echo "no match";
+                    }
+                 }
             }
         }
     }
