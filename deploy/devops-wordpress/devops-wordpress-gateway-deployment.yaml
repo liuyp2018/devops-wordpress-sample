@@ -1,0 +1,106 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: kubesphere-router-ks-devops-test
+  namespace: kubesphere-controls-system
+  labels:
+    app: kubesphere
+    component: ks-router
+    project: ks-devops-test
+    tier: backend
+  annotations:
+    deployment.kubernetes.io/revision: '1'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubesphere
+      component: ks-router
+      project: ks-devops-test
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: kubesphere
+        component: ks-router
+        project: ks-devops-test
+        tier: backend
+      annotations:
+        prometheus.io/port: '10254'
+        prometheus.io/scrape: 'true'
+        sidecar.istio.io/inject: 'true'
+    spec:
+      containers:
+        - name: nginx-ingress-controller
+          image: >-
+            dockerhub.qingcloud.com/kubernetes_ingress_controller/nginx-ingress-controller:0.24.1
+          args:
+            - /nginx-ingress-controller
+            - '--default-backend-service=$(POD_NAMESPACE)/default-http-backend'
+            - '--configmap=$(POD_NAMESPACE)/nginx-configuration'
+            - '--annotations-prefix=nginx.ingress.kubernetes.io'
+            - '--force-namespace-isolation'
+            - '--update-status'
+            - '--update-status-on-shutdown'
+            - '--configmap=$(POD_NAMESPACE)/kubesphere-router-ks-devops-test'
+            - '--watch-namespace=ks-devops-test'
+            - '--election-id=kubesphere-router-ks-devops-test'
+            - '--report-node-internal-ip-address'
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: https
+              containerPort: 443
+              protocol: TCP
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+          resources: {}
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 10254
+              scheme: HTTP
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 10254
+              scheme: HTTP
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsNonRoot: false
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      serviceAccountName: kubesphere-router-serviceaccount
+      serviceAccount: kubesphere-router-serviceaccount
+      securityContext: {}
+      imagePullSecrets:
+        - name: qingcloud
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 100%
+      maxSurge: 100%
+
