@@ -20,7 +20,7 @@ pipeline{
                     );
                     def finder = (response =~ /(?s).*language*/);
                     if (finder) {
-                       echo 'Status ' + finder.group(1);
+                       echo finder.group(1);
                     } else {
                        echo "no match";
                     }
