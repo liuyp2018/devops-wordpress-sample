@@ -20,7 +20,6 @@ spec:
       tier: backend
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: kubesphere
         component: ks-router
