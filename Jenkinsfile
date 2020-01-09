@@ -16,7 +16,7 @@ pipeline{
                  script {
                     response = sh(
                       returnStdout: true, 
-                      script: "curl http://wordpress.demo.example.com:32548/wp-admin/install.php"
+                      script: "curl http://wordpress.demo.example.cluster.local:32548/wp-admin/install.php"
                     );
                     def finder = (response =~ /(?s).*language*/);
                     if (finder) {
