@@ -104,6 +104,4 @@ spec:
     rollingUpdate:
       maxUnavailable: 1
       maxSurge: 1
-  revisionHistoryLimit: 2147483647
-  progressDeadlineSeconds: 2147483647
 
