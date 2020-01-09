@@ -18,14 +18,14 @@ pipeline{
 		
 	   stage('deploy'){
                steps{
-                 kubernetesDeploy(configs: 'deploy1/devops-wordpress/**', enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
+                 kubernetesDeploy(configs: 'deploy1/**', enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
                }
 	    }
 
 		
 	   stage('delete'){
                steps{
-                 kubernetesDeploy(configs: 'deploy1/devops-wordpress/**', deleteResource: true, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
+                 kubernetesDeploy(configs: 'deploy1/**', deleteResource: true, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
                }
             }
      }

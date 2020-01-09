@@ -1,0 +1,32 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: kubesphere-router-ks-devops-test
+  namespace: kubesphere-controls-system
+  labels:
+    app: kubesphere
+    component: ks-router
+    project: ks-devops-test
+    tier: backend
+  annotations:
+    servicemesh.kubesphere.io/enabled: 'true'
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 32548
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+      nodePort: 31701
+  selector:
+    app: kubesphere
+    component: ks-router
+    project: ks-devops-test
+    tier: backend
+  type: NodePort
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
