@@ -19,7 +19,7 @@ pipeline{
 	   stage('deploy'){
                steps{
                  kubernetesDeploy(configs: 'deploy/devops-mysql/**', enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
-                 kubernetesDeploy(configs: 'deploy/devops-wordpress/**', enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")}
+                 kubernetesDeploy(configs: 'deploy/devops-wordpress/**', enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
                }
 	    }
          
@@ -43,7 +43,7 @@ pipeline{
 	   stage('update'){
                steps{
                  kubernetesDeploy(configs: 'deploy/devops-mysql/**', enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
-                 kubernetesDeploy(configs: 'deploy/devops-wordpress/**', enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")}
+                 kubernetesDeploy(configs: 'deploy/devops-wordpress/**', enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
                 }
 	     }
 		
@@ -67,7 +67,7 @@ pipeline{
 	   stage('delete'){
                steps{
                  kubernetesDeploy(configs: 'deploy/devops-mysql/**', deleteResource: true, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
-                 kubernetesDeploy(configs: 'deploy/devops-wordpress/**', deleteResource: true, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")}
+                 kubernetesDeploy(configs: 'deploy/devops-wordpress/**', deleteResource: true, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
                }
             }
      }
