@@ -10,7 +10,7 @@ metadata:
     ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: wordpress.demo.example.com
+    - host: wordpress.demo.example.cluster.local
       http:
         paths:
           - path: /
