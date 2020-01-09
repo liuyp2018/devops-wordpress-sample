@@ -26,6 +26,7 @@ pipeline{
            stage('test curl'){
                steps{  
                  script {
+	            sh 'sleep 60s'
                     response = sh(
                       returnStdout: true, 
                       script: "curl http://wordpress.demo.example.cluster.local:32548/wp-admin/install.php"
