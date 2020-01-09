@@ -47,7 +47,7 @@ pipeline{
                 }
 	     }
 		
-	   stage('test curl'){
+	   stage('test curl again'){
                steps{  
                  script {
                     response = sh(
