@@ -23,10 +23,10 @@ pipeline{
 	    }
 
 		
-	   //stage('delete'){
-           //    steps{
-           //      kubernetesDeploy(configs: 'deploy1/**', deleteResource: true, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
-           //    }
-           // }
+	   stage('delete'){
+               steps{
+                 kubernetesDeploy(configs: 'deploy1/**', deleteResource: true, enableConfigSubstitution : true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
+               }
+            }
      }
 }
