@@ -57,7 +57,7 @@ spec:
       dnsPolicy: ClusterFirst
       securityContext: {}
       schedulerName: default-scheduler
-  serviceName: ''
+  serviceName: 'devops-mysql-svc'
   podManagementPolicy: OrderedReady
   updateStrategy:
     type: RollingUpdate
